@@ -29,7 +29,8 @@ for file in files:
     elif language == 'tosca' and filters.is_tosca_file(file.filename, content):
         metrics = extract_tosca_metrics(content)
     else:
-        continue
+        print('Filter Error!')
+        sys.stdout.flush()
 
     url = f'{os.getenv("INPUT_URL")}/predict?model_id={os.getenv("INPUT_MODEL")}'
     
