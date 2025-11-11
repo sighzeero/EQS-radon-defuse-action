@@ -17,4 +17,4 @@ COPY requirements.txt /requirements.txt
 RUN pip3 install -r requirements.txt
 
 # Code file to execute when the docker container starts up (`entrypoint.sh`)
-ENTRYPOINT ["/entrypoint.py"]
+ENTRYPOINT ["python3", "/entrypoint.py"]

@@ -4,6 +4,7 @@ import json
 import os
 import requests
 import subprocess
+import sys
 
 from github import Github
 from repominer import filters  
@@ -41,5 +42,7 @@ for file in files:
     if response.status_code and response.status_code == 200:
         response_content = json.loads(response.content.decode())
         print(file.filename, ':', response_content)
+        sys.stdout.flush()
     else:
         print('Response status:', response.status_code)
+        sys.stdout.flush()
