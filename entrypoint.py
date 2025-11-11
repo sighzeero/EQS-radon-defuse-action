@@ -22,17 +22,18 @@ files = repo.get_commit(sha=os.getenv('GITHUB_SHA')).files
 
 for file in files:
     
-    content = repo.get_contents(file.filename).decoded_content.decode()
+    content = repo.get_contents(file.filename, ref=os.getenv('GITHUB_SHA')).decoded_content.decode()
 
     if language == 'ansible' and filters.is_ansible_file(file.filename):
         metrics = extract_ansible_metrics(content)
     elif language == 'tosca' and filters.is_tosca_file(file.filename, content):
         metrics = extract_tosca_metrics(content)
     else:
-        print('Filter Error!')
+        print('Filter Error! Skipping', file.filename)
         sys.stdout.flush()
+        continue
 
-    url = f'{os.getenv("INPUT_URL")}/predict?model_id={os.getenv("INPUT_MODEL")}'
+url = f'{os.getenv("INPUT_URL")}/predict?model_id={os.getenv("INPUT_MODEL")}'
     
     for name, value in metrics.items():
         url += f'&{name}={value}'
