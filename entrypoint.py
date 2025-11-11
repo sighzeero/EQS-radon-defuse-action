@@ -35,7 +35,8 @@ for file in files:
     for name, value in metrics.items():
         url += f'&{name}={value}'
 
-    response = requests.get(url)
+    headers = {"ngrok-skip-browser-warning": "true"}
+    response = requests.get(url, headers=headers)
 
     if response.status_code and response.status_code == 200:
         response_content = json.loads(response.content.decode())
