@@ -33,7 +33,7 @@ for file in files:
         sys.stdout.flush()
         continue
 
-url = f'{os.getenv("INPUT_URL")}/predict?model_id={os.getenv("INPUT_MODEL")}'
+    url = f'{os.getenv("INPUT_URL")}/predict?model_id={os.getenv("INPUT_MODEL")}'
     
     for name, value in metrics.items():
         url += f'&{name}={value}'
